@@ -26,7 +26,7 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 @Serializable
-abstract class MapAsContainer<Key, Thing : Any>(
+abstract class MapBackedContainer<Key, Thing : Any>(
   protected val storage: MutableMap<Key, Thing> = mutableMapOf()
 ) : MutableMap<Key, Thing> by storage, Container<Key, Thing> {
 
@@ -43,13 +43,13 @@ abstract class MapAsContainer<Key, Thing : Any>(
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
-    if (other !is MapAsContainer<*, *>) return false
+    if (other !is MapBackedContainer<*, *>) return false
     return storage == other.storage
   }
 }
 
-@Serializer(MapAsContainer::class)
-abstract class MapAsContainerSubclassSerializer<T : Any, C : MapAsContainer<String, T>>(
+@Serializer(MapBackedContainer::class)
+abstract class MapBackedContainerSubclassSerializer<T : Any, C : MapBackedContainer<String, T>>(
   elementSerializer: KSerializer<T>,
   val constructSubclass: () -> C
 ) : KSerializer<C> {
@@ -57,7 +57,7 @@ abstract class MapAsContainerSubclassSerializer<T : Any, C : MapAsContainer<Stri
   private val ms = MapSerializer(String.serializer(), elementSerializer)
 
   override val descriptor = buildClassSerialDescriptor(
-    "MapAsContainerSubclass",
+    "MapBackedContainerSubclass",
     String.serializer().descriptor,
     elementSerializer.descriptor
   )

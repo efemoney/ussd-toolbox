@@ -19,4 +19,4 @@ import com.efemoney.ussdtoolbox.service.api.ActionContainer
 import kotlinx.serialization.Serializable
 
 @Serializable
-class ActionContainerImpl : MapAsContainer<String, ActionImpl>(), ActionContainer<ActionImpl>
+class ActionContainerImpl : MapBackedContainer<String, ActionImpl>(), ActionContainer<ActionImpl>
