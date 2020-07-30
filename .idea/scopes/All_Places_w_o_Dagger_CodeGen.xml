@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="All Places w/o Dagger CodeGen" pattern="!file:*_*Factory.java&amp;&amp;!file:*_*MembersInjector.java" />
+</component>

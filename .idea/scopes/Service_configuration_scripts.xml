@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Service configuration scripts" pattern="file:*.ussd.kts" />
+</component>

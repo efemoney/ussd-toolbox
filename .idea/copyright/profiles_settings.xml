@@ -1,0 +1,8 @@
+<component name="CopyrightManager">
+  <settings default="Me (Apache 2.0)">
+    <module2copyright>
+      <element module="Service configuration scripts" copyright="Nothing" />
+      <element module="All" copyright="Me (Apache 2.0)" />
+    </module2copyright>
+  </settings>
+</component>
