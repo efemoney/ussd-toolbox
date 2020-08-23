@@ -22,5 +22,5 @@ dependencies {
   api(project(":service-api"))
   api(project(":service-dsl"))
   implementation(Deps.kotlin.stdlib.jdk8)
-  implementation(Deps.kotlinx.serialization.runtime)
+  implementation(Deps.kotlinx.serialization.core)
 }

@@ -18,23 +18,27 @@ package com.efemoney.ussdtoolbox.service.dsl
 import com.efemoney.ussdtoolbox.service.api.*
 import com.efemoney.ussdtoolbox.service.dsl.marker.ServiceDsl
 
-interface FieldBuilderScope<T, F : Field<T>> {
+interface FieldBuilderScope<T : Any, F : Field<T>> {
 
   var label: String
 
   var description: String
 
+  @Deprecated(
+    message = "Not to be called from user code",
+    level = DeprecationLevel.WARNING
+  )
   fun build(key: String): F
 }
 
 @ServiceDsl
-interface InputFieldBuilderScope<T, IF : InputField<T>> : FieldBuilderScope<T, IF> {
+interface InputFieldBuilderScope<T : Any, IF : InputField<T>> : FieldBuilderScope<T, IF> {
 
   var hint: String
 }
 
 @ServiceDsl
-interface SelectorFieldBuilderScope<T, SF : SelectorField<T>> : FieldBuilderScope<T, SF> {
+interface SelectorFieldBuilderScope<T : Any, SF : SelectorField<T>> : FieldBuilderScope<T, SF> {
 
   var default: T
 }

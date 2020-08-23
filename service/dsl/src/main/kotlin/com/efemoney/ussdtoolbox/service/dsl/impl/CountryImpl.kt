@@ -13,32 +13,23 @@
  * limitations under the License.
  */
 
-package tasks.countries
+package com.efemoney.ussdtoolbox.service.dsl.impl
 
-typealias LanguageCode = String
+import com.efemoney.ussdtoolbox.service.api.Country
+import com.efemoney.ussdtoolbox.service.api.CountryCode
+import com.efemoney.ussdtoolbox.service.api.LanguageCode
 
-typealias CountryCode = String
+data class CountryImpl(
 
-interface Language {
+  override val code: CountryCode,
 
-  val code: LanguageCode
+  override val name: String,
 
-  val name: String
+  override val nativeName: String,
 
-  val nativeName: String
-}
+  override val nameTranslations: Map<LanguageCode, String>,
 
-interface Country {
+  override val altSpellings: List<String>,
 
-  val code: CountryCode
-
-  val name: String
-
-  val nativeName: String
-
-  val nameTranslations: Map<LanguageCode, String>
-
-  val altSpellings: List<String>
-
-  val languages: List<Language>
-}
+  override val languages: List<LanguageImpl>
+) : Country

@@ -17,28 +17,36 @@ package com.efemoney.ussdtoolbox.service.impl
 
 import com.efemoney.ussdtoolbox.service.api.Country
 import com.efemoney.ussdtoolbox.service.api.Service
-import com.efemoney.ussdtoolbox.service.dsl.*
+import com.efemoney.ussdtoolbox.service.dsl.ActionContainerScope
+import com.efemoney.ussdtoolbox.service.dsl.ServiceProviderScope
+import com.efemoney.ussdtoolbox.service.dsl.ServiceScope
 
 class ServiceScopeImpl(val service: ServiceImpl) : ServiceScope, Service by service {
 
+  lateinit var country: Country
+
   override fun provider(configure: ServiceProviderScope.() -> Unit) =
-    configure(ServiceProviderScopeImpl(service))
+    configure(ServiceProviderScopeImpl(this))
 
   override fun actions(configure: ActionContainerScope.() -> Unit) =
-    configure(ActionContainerScopeImpl(service.actions, service.country))
+    configure(ActionContainerScopeImpl(service.actions, country))
 
   override fun toString() = "ServiceScope($service)"
 }
 
-internal class ServiceProviderScopeImpl(private val delegate: Service) : ServiceProviderScope {
+internal class ServiceProviderScopeImpl(private val delegate: ServiceScopeImpl) : ServiceProviderScope {
 
   override var name: String
     get() = delegate.name
-    set(value) { delegate.name = value }
+    set(value) {
+      delegate.name = value
+    }
 
   override var logoUrl: String?
     get() = delegate.logoUrl
-    set(value) { delegate.logoUrl = value }
+    set(value) {
+      delegate.logoUrl = value
+    }
 
   override var logoHasText: Boolean
     get() = delegate.logoHasText

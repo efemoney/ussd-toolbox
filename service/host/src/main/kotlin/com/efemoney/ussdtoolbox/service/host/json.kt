@@ -15,14 +15,8 @@
 
 package com.efemoney.ussdtoolbox.service.host
 
-import com.efemoney.ussdtoolbox.service.api.Field
-import com.efemoney.ussdtoolbox.service.impl.BooleanFieldImpl
-import com.efemoney.ussdtoolbox.service.impl.NumberFieldImpl
-import com.efemoney.ussdtoolbox.service.impl.TextFieldImpl
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.polymorphic
-import kotlinx.serialization.modules.subclass
 
 internal val json = Json {
 
@@ -30,12 +24,5 @@ internal val json = Json {
 
   prettyPrintIndent = "  "
 
-  serializersModule = SerializersModule {
-
-    polymorphic(Field::class) {
-      subclass(BooleanFieldImpl.serializer())
-      subclass(NumberFieldImpl.serializer())
-      subclass(TextFieldImpl.serializer())
-    }
-  }
+  serializersModule = SerializersModule {}
 }

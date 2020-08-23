@@ -19,6 +19,6 @@ import kotlin.annotation.AnnotationRetention.SOURCE
 import kotlin.annotation.AnnotationTarget.*
 
 @Retention(SOURCE)
-@Target(CLASS, FUNCTION, TYPE, TYPEALIAS)
+@Target(CLASS, FUNCTION, TYPE, TYPEALIAS, PROPERTY)
 @DslMarker
-annotation class ServiceDsl
+internal annotation class ServiceDsl

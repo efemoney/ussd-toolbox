@@ -13,12 +13,18 @@
  * limitations under the License.
  */
 
-package com.efemoney.ussdtoolbox.service.impl
+package tasks.internal
 
-import com.efemoney.ussdtoolbox.service.api.Field
-import com.efemoney.ussdtoolbox.service.api.FieldContainer
-import kotlinx.serialization.Polymorphic
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.json.Json
+import java.io.File
 
-@Serializable
-class FieldContainerImpl : MapBackedContainer<String, Field<@Polymorphic Any>>(), FieldContainer<Field<Any>>
+internal object CountriesJsonParser {
+
+  private val json = Json { ignoreUnknownKeys = true }
+
+  fun parse(from: File) = json.decodeFromString(
+    deserializer = ListSerializer(CountryDto.serializer()),
+    string = from.readText()
+  )
+}

@@ -28,7 +28,7 @@ import kotlin.script.experimental.host.toScriptSource
 
 internal object HandleResAnnotations : RefineScriptCompilationConfigurationHandler {
 
-  private val resourcesDir = File(System.getProperty("user.dir")).resolve("resources").apply { mkdirs() }
+  private val resourcesDir = File(System.getProperty("user.dir")).resolve("resources")
 
   override fun invoke(context: ScriptConfigurationRefinementContext): ResultWithDiagnostics<ScriptCompilationConfiguration> {
 

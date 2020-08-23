@@ -13,35 +13,8 @@
  * limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import tasks.DownloadCountries
-import tasks.GenerateCountriesApi
-
 plugins {
   kotlin("jvm")
-}
-
-val generatedFileLocation = buildDir("generated/source/countries")
-
-kotlin.sourceSets {
-  get("main").kotlin.srcDir(generatedFileLocation)
-}
-
-tasks {
-
-  register<GenerateCountriesApi>("countriesApi") {
-    val downloadCountries: DownloadCountries by rootProject.tasks
-
-    outputDir = generatedFileLocation
-    outputPackage = "com.efemoney.ussdtoolbox.service.api"
-
-    dependsOn(downloadCountries)
-    countriesJsonFile = downloadCountries.countriesJsonFile
-  }
-
-  named<KotlinCompile>("compileKotlin") {
-    dependsOn("countriesApi")
-  }
 }
 
 dependencies {

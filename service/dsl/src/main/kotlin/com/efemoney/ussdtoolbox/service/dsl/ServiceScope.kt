@@ -15,11 +15,10 @@
 
 package com.efemoney.ussdtoolbox.service.dsl
 
-import com.efemoney.ussdtoolbox.service.api.Service
 import com.efemoney.ussdtoolbox.service.dsl.marker.ServiceDsl
 
 @ServiceDsl
-interface ServiceScope : Service {
+interface ServiceScope {
 
   @ServiceDsl
   fun provider(configure: ServiceProviderScope.() -> Unit)

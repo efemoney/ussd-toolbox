@@ -29,7 +29,5 @@ interface Service {
 
   var brandAccentColor: Int
 
-  var country: Country
-
   val actions: ActionContainer<*>
 }

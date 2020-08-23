@@ -15,7 +15,7 @@
 
 package com.efemoney.ussdtoolbox.service.api
 
-interface Field<ValueT> {
+interface Field<ValueT : Any> {
 
   val key: String
 
@@ -27,12 +27,12 @@ interface Field<ValueT> {
 }
 
 
-interface InputField<InputT> : Field<InputT> {
+interface InputField<InputT : Any> : Field<InputT> {
 
   val hint: String
 }
 
-interface SelectorField<ValueT> : Field<ValueT> {
+interface SelectorField<ValueT : Any> : Field<ValueT> {
 
   val allowedValues: Set<ValueT>
 

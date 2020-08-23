@@ -104,7 +104,7 @@ subprojects {
         isCoreLibraryDesugaringEnabled = true
 
         project.dependencies {
-          "coreLibraryDesugaring"("com.android.tools:desugar_jdk_libs:1.0.9")
+          "coreLibraryDesugaring"("com.android.tools:desugar_jdk_libs:1.0.10")
         }
 
         sourceCompatibility = java8
@@ -154,20 +154,24 @@ subprojects {
     tasks.withType<KotlinCompile<*>>().configureEach {
       kotlinOptions {
         verbose = true
-        freeCompilerArgs = listOf(
+        freeCompilerArgs = freeCompilerArgs + listOf(
           "-progressive",
           "-Xopt-in=kotlin.RequiresOptIn",
           "-Xopt-in=kotlin.ExperimentalStdlibApi",
+          "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
           "-XXLanguage:+InlineClasses",
-          "-XXLanguage:+NewInference",
+          "-XXLanguage:+UnitConversion",
+          "-XXLanguage:+SuspendConversion",
           "-XXLanguage:+BooleanElvisBoundSmartCasts",
-          "-XXLanguage:+SamConversionPerArgument",
           "-XXLanguage:+NewDataFlowForTryExpressions",
-          "-XXLanguage:+SamConversionForKotlinFunctions",
-          "-XXLanguage:+FunctionReferenceWithDefaultValueAsOtherType"
+          "-XXLanguage:+ReferencesToSyntheticJavaProperties"
         )
       }
-      if (this is KotlinJvmCompile) kotlinOptions.jvmTarget = "1.8"
+
+      (this as? KotlinJvmCompile)?.kotlinOptions {
+        useIR = true
+        jvmTarget = "1.8"
+      }
     }
 
     // Configure intelliJ to run :service-def:assemble after sync
@@ -187,5 +191,5 @@ tasks.register<Delete>("clean") {
 }
 
 tasks.register<DownloadCountries>("downloadCountries") {
-  countriesJsonFile = buildFile("countries.json")
+  countriesJsonFile.set(buildFile("countries.json"))
 }

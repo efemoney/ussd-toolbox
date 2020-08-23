@@ -13,12 +13,16 @@
  * limitations under the License.
  */
 
-package com.efemoney.ussdtoolbox.service.impl
+package com.efemoney.ussdtoolbox.service.dsl.impl
 
-import com.efemoney.ussdtoolbox.service.api.Field
-import com.efemoney.ussdtoolbox.service.api.FieldContainer
-import kotlinx.serialization.Polymorphic
-import kotlinx.serialization.Serializable
+import com.efemoney.ussdtoolbox.service.api.Language
+import com.efemoney.ussdtoolbox.service.api.LanguageCode
 
-@Serializable
-class FieldContainerImpl : MapBackedContainer<String, Field<@Polymorphic Any>>(), FieldContainer<Field<Any>>
+data class LanguageImpl(
+
+  override val code: LanguageCode,
+
+  override val name: String,
+
+  override val nativeName: String
+) : Language

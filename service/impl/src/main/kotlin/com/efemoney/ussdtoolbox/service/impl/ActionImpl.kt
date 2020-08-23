@@ -12,12 +12,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:UseSerializers(CountrySerializer::class, LanguageSerializer::class)
 
 package com.efemoney.ussdtoolbox.service.impl
 
-import com.efemoney.ussdtoolbox.service.api.Action
-import com.efemoney.ussdtoolbox.service.api.Country
+import com.efemoney.ussdtoolbox.service.api.*
+import com.efemoney.ussdtoolbox.service.dsl.impl.CountryImpl
+import com.efemoney.ussdtoolbox.service.dsl.impl.LanguageImpl
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
+import kotlinx.serialization.UseSerializers
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.buildClassSerialDescriptor
+import kotlinx.serialization.descriptors.element
 
 @Serializable
 data class ActionImpl(
@@ -33,3 +41,19 @@ data class ActionImpl(
   override val templates: TemplateContainerImpl = TemplateContainerImpl()
 
 ) : Action
+
+@Serializer(forClass = CountryImpl::class)
+object CountrySerializer {
+  override val descriptor: SerialDescriptor =
+    buildClassSerialDescriptor("com.efemoney.ussdtoolbox.service.dsl.impl.CountryImpl") {
+      element<CountryCode>("code")
+      element<String>("name")
+      element<String>("nativeName")
+      element<Map<LanguageCode, String>>("nameTranslations")
+      element<String>("altSpellings")
+      element<String>("languages")
+    }
+}
+
+@Serializer(forClass = LanguageImpl::class)
+object LanguageSerializer : KSerializer<Language>

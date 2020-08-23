@@ -15,18 +15,15 @@
 
 package com.efemoney.ussdtoolbox.service.impl
 
-import com.efemoney.ussdtoolbox.service.api.Countries
-import com.efemoney.ussdtoolbox.service.api.Country
 import com.efemoney.ussdtoolbox.service.api.Service
 import kotlinx.serialization.Serializable
-import java.util.*
 
 @Serializable
 data class ServiceImpl(
 
   override val id: String,
 
-  override var name: String = id.capitalize(Locale.getDefault()),
+  override var name: String,
 
   override var logoUrl: String? = null,
 
@@ -35,8 +32,6 @@ data class ServiceImpl(
   override var brandColor: Int = "#FFFFFF".toColor(),
 
   override var brandAccentColor: Int = "#3F51B5".toColor(),
-
-  override var country: Country = Countries.findByCountryCode(Locale.getDefault().country) ?: Countries.NG,
 
   override var actions: ActionContainerImpl = ActionContainerImpl(),
 ) : Service

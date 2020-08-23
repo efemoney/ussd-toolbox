@@ -16,10 +16,8 @@
 package com.efemoney.ussdtoolbox.service.host
 
 import com.efemoney.ussdtoolbox.service.ServiceScript
-import com.efemoney.ussdtoolbox.service.api.Field
-import com.efemoney.ussdtoolbox.service.api.Service
-import com.efemoney.ussdtoolbox.service.api.TextField
-import com.efemoney.ussdtoolbox.service.impl.*
+import com.efemoney.ussdtoolbox.service.impl.ServiceImpl
+import com.efemoney.ussdtoolbox.service.impl.ServiceScopeImpl
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.PrintMessage
 import com.github.ajalt.clikt.parameters.arguments.argument
@@ -27,10 +25,7 @@ import com.github.ajalt.clikt.parameters.arguments.convert
 import com.github.ajalt.clikt.parameters.arguments.multiple
 import com.github.ajalt.clikt.parameters.types.file
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.polymorphic
-import kotlinx.serialization.modules.subclass
+import java.util.*
 import kotlin.script.experimental.api.ResultValue
 import kotlin.script.experimental.api.ResultValue.Error
 import kotlin.script.experimental.api.SourceCode
@@ -50,8 +45,10 @@ fun main(args: Array<String>) = object : CliktCommand(name = "ussdService") {
 
   override fun run() = files.forEach { script ->
 
+    val scriptId = script.name ?: throw IllegalArgumentException("The script ()")
+
     val scriptTarget = ServiceScopeImpl(
-      ServiceImpl(id = script.name!!)
+      ServiceImpl(id = scriptId, name = scriptId.capitalize(Locale.ROOT))
     )
 
     val result = scriptingHost
@@ -71,7 +68,6 @@ fun main(args: Array<String>) = object : CliktCommand(name = "ussdService") {
   }
 
   private fun handleEvalSuccess(result: ResultValue) {
-    println(result.scriptInstance as Service)
 
     val service = ((result.scriptInstance as? ServiceScript)?.scope as? ServiceScopeImpl)?.service
       ?: throw PrintMessage("Something wrong happened. The script is ... not a script 😢")

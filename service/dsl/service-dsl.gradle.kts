@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import tasks.DownloadCountries
 import tasks.GenerateCountriesDsl
 
@@ -21,25 +20,21 @@ plugins {
   kotlin("jvm")
 }
 
-val generatedFileLocation = buildDir("generated/source/countries")
+val generatedSrcDir = buildDir("generated/source/countries")
 
-kotlin.sourceSets {
-  get("main").kotlin.srcDir(generatedFileLocation)
+kotlin.sourceSets.main {
+  kotlin.srcDir(generatedSrcDir)
 }
 
 tasks {
 
   register<GenerateCountriesDsl>("countriesDsl") {
-    val downloadCountries: DownloadCountries by rootProject.tasks
-
-    outputDir = generatedFileLocation
-    outputPackage = "com.efemoney.ussdtoolbox.service.dsl"
-
-    dependsOn(downloadCountries)
-    countriesJsonFile = downloadCountries.countriesJsonFile
+    val downloadTask = rootProject.tasks.named<DownloadCountries>("downloadCountries")
+    outputDir.set(generatedSrcDir)
+    countriesJsonFile.set(downloadTask.flatMap(DownloadCountries::countriesJsonFile))
   }
 
-  named<KotlinCompile>("compileKotlin") {
+  compileKotlin {
     dependsOn("countriesDsl")
   }
 }

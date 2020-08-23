@@ -21,18 +21,15 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.sink
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.RegularFile
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
-import org.gradle.kotlin.dsl.getValue
-import org.gradle.kotlin.dsl.setValue
 import javax.inject.Inject
 
 open class DownloadCountries @Inject constructor(objectFactory: ObjectFactory) : DefaultTask() {
 
-  @get:OutputFile
-  var countriesJsonFile: RegularFile by objectFactory.fileProperty()
+  @OutputFile
+  val countriesJsonFile = objectFactory.fileProperty()
 
   @TaskAction
   internal fun downloadCountries() {
@@ -46,6 +43,6 @@ open class DownloadCountries @Inject constructor(objectFactory: ObjectFactory) :
       .execute()
       .body
       ?.source()
-      ?.readAll(countriesJsonFile.asFile.sink())
+      ?.readAll(countriesJsonFile.asFile.get().sink())
   }
 }

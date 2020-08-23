@@ -16,14 +16,7 @@
 package com.efemoney.ussdtoolbox.service.impl
 
 import com.efemoney.ussdtoolbox.service.api.Container
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
-import kotlinx.serialization.builtins.MapSerializer
-import kotlinx.serialization.builtins.serializer
-import kotlinx.serialization.descriptors.buildClassSerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 
 @Serializable
 abstract class MapBackedContainer<Key, Thing : Any>(
@@ -46,25 +39,4 @@ abstract class MapBackedContainer<Key, Thing : Any>(
     if (other !is MapBackedContainer<*, *>) return false
     return storage == other.storage
   }
-}
-
-@Serializer(MapBackedContainer::class)
-abstract class MapBackedContainerSubclassSerializer<T : Any, C : MapBackedContainer<String, T>>(
-  elementSerializer: KSerializer<T>,
-  val constructSubclass: () -> C
-) : KSerializer<C> {
-
-  private val ms = MapSerializer(String.serializer(), elementSerializer)
-
-  override val descriptor = buildClassSerialDescriptor(
-    "MapBackedContainerSubclass",
-    String.serializer().descriptor,
-    elementSerializer.descriptor
-  )
-
-  override fun deserialize(decoder: Decoder) = constructSubclass().also {
-    it.putAll(ms.deserialize(decoder))
-  }
-
-  override fun serialize(encoder: Encoder, value: C) = ms.serialize(encoder, value)
 }

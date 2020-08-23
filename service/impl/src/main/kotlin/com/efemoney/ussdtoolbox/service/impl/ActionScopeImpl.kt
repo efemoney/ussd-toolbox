@@ -42,7 +42,7 @@ internal class ActionScopeImpl(internal val action: ActionImpl) : ActionScope {
     require(property !is KMutableProperty) { "You must define '${property.name}' as val and not var" }
     require(!::templateCollation.isInitialized) { "You must define property '${property.name}' before the template { ... } block" }
 
-    return action.fields.getOrPut(property.name, ::build) as Field<T>
+    return action.fields.getOrPut(property.name) { @Suppress("DEPRECATION") build(it) as Field<Any> } as Field<T>
   }
 
   override fun <T : Any> Field<T>.getValue(any: Any?, property: KProperty<*>): T {

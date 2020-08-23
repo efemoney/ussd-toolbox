@@ -72,14 +72,14 @@ private fun Iterable<Set<Any>>.toCartesianProduct() = fold(listOf(listOf<Any>())
 }
 
 private fun <T : Any> InputField<T>.resolutionValue(): Any = when (this) {
-  is NumberField -> WrapNum(key)
-  is TextField -> wrap(key)
+  is NumberField -> WrapNumber(key)
+  is TextField -> WrapString(key)
   else -> error("Do not call resolutionValue for non Input fields")
 }
 
-private fun wrap(string: String) = "<$string>"
+private fun WrapString(string: String) = "<$string>"
 
-private class WrapNum(private val string: String) : Number() {
+private class WrapNumber(private val string: String) : Number() {
   override fun toByte(): Byte = error("Do not call")
   override fun toChar(): Char = error("Do not call")
   override fun toDouble(): Double = error("Do not call")
@@ -87,5 +87,5 @@ private class WrapNum(private val string: String) : Number() {
   override fun toInt(): Int = error("Do not call")
   override fun toLong(): Long = error("Do not call")
   override fun toShort(): Short = error("Do not call")
-  override fun toString(): String = wrap(string)
+  override fun toString(): String = WrapString(string)
 }

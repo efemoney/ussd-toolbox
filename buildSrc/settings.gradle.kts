@@ -29,11 +29,11 @@ pluginManagement {
     eachPlugin {
       when (requested.id.id) {
         "org.jetbrains.kotlin.plugin.serialization" ->
-          useModule("org.jetbrains.kotlin:kotlin-serialization:1.4.0-rc")
+          useModule("org.jetbrains.kotlin:kotlin-serialization:1.4.0")
 
         "org.jetbrains.kotlin.jvm",
         "org.jetbrains.kotlin.kapt" ->
-          useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.0-rc")
+          useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.0")
       }
     }
   }
