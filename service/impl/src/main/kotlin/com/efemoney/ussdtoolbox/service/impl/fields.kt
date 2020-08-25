@@ -21,9 +21,11 @@ import com.efemoney.ussdtoolbox.service.api.TextField
 import com.efemoney.ussdtoolbox.service.dsl.BooleanFieldBuilderScope
 import com.efemoney.ussdtoolbox.service.dsl.NumberFieldBuilderScope
 import com.efemoney.ussdtoolbox.service.dsl.TextFieldBuilderScope
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@SerialName("text")
 data class TextFieldImpl(
   override val key: String,
   override val label: String,
@@ -32,6 +34,7 @@ data class TextFieldImpl(
 ) : TextField()
 
 @Serializable
+@SerialName("number")
 data class NumberFieldImpl(
   override val key: String,
   override val label: String,
@@ -41,6 +44,7 @@ data class NumberFieldImpl(
 ) : NumberField()
 
 @Serializable
+@SerialName("boolean")
 data class BooleanFieldImpl(
   override val key: String,
   override val label: String,

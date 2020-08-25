@@ -15,9 +15,9 @@
 
 package com.efemoney.ussdtoolbox.service.api
 
-interface Field<ValueT : Any> {
+interface Field<ValueT : Any> : Keyed {
 
-  val key: String
+  override val key: String
 
   val label: String
 

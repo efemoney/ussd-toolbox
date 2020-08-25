@@ -15,4 +15,4 @@
 
 package com.efemoney.ussdtoolbox.service.api
 
-interface TemplateContainer<T : Template> : Container<String, T>
+interface TemplateContainer<T : Template> : Container<T>

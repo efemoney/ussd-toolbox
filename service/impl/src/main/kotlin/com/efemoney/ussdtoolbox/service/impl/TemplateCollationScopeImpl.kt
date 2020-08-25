@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("UNCHECKED_CAST")
+@file:Suppress("UNCHECKED_CAST", "FunctionName")
 
 package com.efemoney.ussdtoolbox.service.impl
 
@@ -23,9 +23,9 @@ import java.util.*
 
 internal class TemplateCollationScopeImpl(private val action: ActionImpl) : TemplateCollationScope() {
 
-  private var run: CollationRun? = null
+  private var collationRunScope: CollationRun? = null
 
-  internal fun run(runner: TemplateCollationScope.() -> String) {
+  internal fun run(doRun: TemplateCollationScope.() -> String) {
     val selectors = action.fields.values.asSequence().filterIsInstance<SelectorField<Any>>()
 
     val selectorFields = selectors.toSet()
@@ -37,29 +37,33 @@ internal class TemplateCollationScopeImpl(private val action: ActionImpl) : Temp
         "Unknown field added to Action('${action.key}'). Fields must be of type Input or Selector"
       }
 
-      run = CollationRun(selectorFields.zip(values).toMap())
-      val result = runner()
-      action.templates.getOrPut(result.uuid()) { TemplateImpl(it, result, run!!.involvedFields.toSet()) }
-      run = null
+      collationRunScope = CollationRun(selectorFields.zip(values).toMap())
+      val result = doRun()
+      val uuid = result.uuid()
+      action.templates.getOrPut(uuid) { TemplateImpl(uuid, result, collationRunScope!!.involvedFields.toSet()) }
+      collationRunScope = null
     }
   }
 
-  public override fun <T : Any> getValue(field: Field<T>): T {
-    require(run != null) { "Collation run happening in illegal state" }
-    run!!.run {
-      return when (field) {
-        is SelectorField -> (fieldValues.getValue(field) as T).also { involvedFields += "${field.key}($it)" }
-
-        is InputField -> field.resolutionValue().also { involvedFields += field.key }
-
-        else -> error("Unknown field type: ${field::class}")
-      } as T
-    }
+  override fun <T : Any> getValue(field: Field<T>): T {
+    return collationRunScope?.getValue(field)
+      ?: throw IllegalStateException("Querying a field is only allowed with a template { ... } block")
   }
 }
 
-private class CollationRun(val fieldValues: Map<SelectorField<*>, Any>) {
+private class CollationRun(val fieldValues: Map<SelectorField<*>, Any>) : TemplateCollationScope() {
+
   val involvedFields = mutableSetOf<String>()
+
+  override fun <T : Any> getValue(field: Field<T>): T = when (field) {
+
+    is SelectorField -> (fieldValues.getValue(field) as T).also { involvedFields += "${field.key}($it)" }
+
+    is InputField -> field.resolutionValue().also { involvedFields += field.key }
+
+    else -> error("Unknown field type: ${field::class}")
+
+  } as T
 }
 
 private fun String.uuid() = UUID.nameUUIDFromBytes(toByteArray()).toString()
@@ -72,14 +76,14 @@ private fun Iterable<Set<Any>>.toCartesianProduct() = fold(listOf(listOf<Any>())
 }
 
 private fun <T : Any> InputField<T>.resolutionValue(): Any = when (this) {
-  is NumberField -> WrapNumber(key)
-  is TextField -> WrapString(key)
+  is NumberField -> NumberResolutionValue(key)
+  is TextField -> StringResolutionValue(key)
   else -> error("Do not call resolutionValue for non Input fields")
 }
 
-private fun WrapString(string: String) = "<$string>"
+private fun StringResolutionValue(string: String) = "<$string>"
 
-private class WrapNumber(private val string: String) : Number() {
+private class NumberResolutionValue(private val string: String) : Number() {
   override fun toByte(): Byte = error("Do not call")
   override fun toChar(): Char = error("Do not call")
   override fun toDouble(): Double = error("Do not call")
@@ -87,5 +91,5 @@ private class WrapNumber(private val string: String) : Number() {
   override fun toInt(): Int = error("Do not call")
   override fun toLong(): Long = error("Do not call")
   override fun toShort(): Short = error("Do not call")
-  override fun toString(): String = WrapString(string)
+  override fun toString(): String = StringResolutionValue(string)
 }

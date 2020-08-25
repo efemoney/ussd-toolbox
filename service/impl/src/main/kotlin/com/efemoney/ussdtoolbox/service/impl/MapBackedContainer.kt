@@ -16,19 +16,11 @@
 package com.efemoney.ussdtoolbox.service.impl
 
 import com.efemoney.ussdtoolbox.service.api.Container
-import kotlinx.serialization.Serializable
+import com.efemoney.ussdtoolbox.service.api.Keyed
 
-@Serializable
-abstract class MapBackedContainer<Key, Thing : Any>(
-  protected val storage: MutableMap<Key, Thing> = mutableMapOf()
-) : MutableMap<Key, Thing> by storage, Container<Key, Thing> {
-
-  override fun get(key: Key): Thing = storage.getValue(key)
-
-  override fun getOrPut(key: Key, orDefault: (Key) -> @UnsafeVariance Thing) =
-    storage.getOrPut(key) { orDefault(key) }
-
-  override fun iterator(): Iterator<Thing> = storage.values.iterator()
+abstract class MapBackedContainer<Thing : Keyed>(
+  private val storage: MutableMap<String, Thing> = mutableMapOf()
+) : MutableMap<String, Thing> by storage, Container<Thing> {
 
   override fun hashCode() = storage.hashCode()
 
@@ -36,7 +28,7 @@ abstract class MapBackedContainer<Key, Thing : Any>(
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
-    if (other !is MapBackedContainer<*, *>) return false
+    if (other !is MapBackedContainer<*>) return false
     return storage == other.storage
   }
 }

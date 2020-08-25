@@ -46,3 +46,5 @@ internal fun Int.toColorString(): String {
     String.format(formatString, 0xFFFFFFFF and it)
   }
 }
+
+internal inline fun <reified T> Any.cast(): T = this as T

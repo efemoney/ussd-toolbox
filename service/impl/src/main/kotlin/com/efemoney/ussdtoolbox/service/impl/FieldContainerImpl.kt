@@ -18,7 +18,5 @@ package com.efemoney.ussdtoolbox.service.impl
 import com.efemoney.ussdtoolbox.service.api.Field
 import com.efemoney.ussdtoolbox.service.api.FieldContainer
 import kotlinx.serialization.Polymorphic
-import kotlinx.serialization.Serializable
 
-@Serializable
-class FieldContainerImpl : MapBackedContainer<String, Field<@Polymorphic Any>>(), FieldContainer<Field<Any>>
+class FieldContainerImpl : MapBackedContainer<Field<@Polymorphic Any>>(), FieldContainer<Field<Any>>

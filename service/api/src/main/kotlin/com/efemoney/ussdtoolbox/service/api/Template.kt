@@ -15,9 +15,9 @@
 
 package com.efemoney.ussdtoolbox.service.api
 
-interface Template {
+interface Template : Keyed {
 
-  val key: String
+  override val key: String
 
   var value: String
 

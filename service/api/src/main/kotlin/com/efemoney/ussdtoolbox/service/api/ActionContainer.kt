@@ -15,4 +15,4 @@
 
 package com.efemoney.ussdtoolbox.service.api
 
-interface ActionContainer<T : Action> : Container<String, T>
+interface ActionContainer<T : Action> : Container<T>

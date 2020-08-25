@@ -98,6 +98,7 @@ object Deps {
     }
     object serialization {
       const val core = "org.jetbrains.kotlinx:kotlinx-serialization-core:${Versions.serialization}"
+      const val hocon = "org.jetbrains.kotlinx:kotlinx-serialization-hocon:${Versions.serialization}"
     }
   }
 

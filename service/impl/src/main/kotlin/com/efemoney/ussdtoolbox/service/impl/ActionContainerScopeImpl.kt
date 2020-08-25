@@ -26,7 +26,8 @@ class ActionContainerScopeImpl(
 ) : ActionContainerScope {
 
   override fun String.invoke(configure: ActionScope.() -> Unit) {
-    val action = actions.getOrPut(toActionKey()) { ActionImpl(it, this, country) }
+    val key = this.toActionKey()
+    val action = actions.getOrPut(key) { ActionImpl(key, this, country) }
     ActionScopeImpl(action).configure()
   }
 }

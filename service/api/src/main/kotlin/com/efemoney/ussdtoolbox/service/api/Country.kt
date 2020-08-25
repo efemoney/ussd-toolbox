@@ -17,11 +17,11 @@ package com.efemoney.ussdtoolbox.service.api
 
 typealias CountryCode = String
 
-interface Country {
-  val code: CountryCode
-  val name: String
-  val nativeName: String
-  val nameTranslations: Map<LanguageCode, String>
-  val altSpellings: List<String>
-  val languages: List<Language>
-}
+data class Country(
+  val code: CountryCode,
+  val name: String,
+  val nativeName: String,
+  val nameTranslations: Map<LanguageCode, String>,
+  val altSpellings: List<String>,
+  val languages: List<Language>,
+)

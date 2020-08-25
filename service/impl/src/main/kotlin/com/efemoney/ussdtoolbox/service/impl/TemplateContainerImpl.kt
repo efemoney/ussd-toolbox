@@ -16,7 +16,5 @@
 package com.efemoney.ussdtoolbox.service.impl
 
 import com.efemoney.ussdtoolbox.service.api.TemplateContainer
-import kotlinx.serialization.Serializable
 
-@Serializable
-class TemplateContainerImpl : MapBackedContainer<String, TemplateImpl>(), TemplateContainer<TemplateImpl>
+class TemplateContainerImpl : MapBackedContainer<TemplateImpl>(), TemplateContainer<TemplateImpl>

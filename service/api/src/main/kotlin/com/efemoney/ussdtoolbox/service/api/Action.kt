@@ -15,11 +15,11 @@
 
 package com.efemoney.ussdtoolbox.service.api
 
-interface Action {
+interface Action : Keyed {
+
+  override val key: String
 
   val name: String
-
-  val key: String
 
   val country: Country
 

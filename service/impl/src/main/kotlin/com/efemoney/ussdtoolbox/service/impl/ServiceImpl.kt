@@ -13,10 +13,16 @@
  * limitations under the License.
  */
 
+@file:UseSerializers(
+  ColorSerializer::class,
+  ActionContainerSerializer::class,
+)
+
 package com.efemoney.ussdtoolbox.service.impl
 
 import com.efemoney.ussdtoolbox.service.api.Service
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.UseSerializers
 
 @Serializable
 data class ServiceImpl(
@@ -29,9 +35,12 @@ data class ServiceImpl(
 
   override var logoHasText: Boolean = false,
 
+  @Serializable(ColorSerializer::class)
   override var brandColor: Int = "#FFFFFF".toColor(),
 
+  @Serializable(ColorSerializer::class)
   override var brandAccentColor: Int = "#3F51B5".toColor(),
 
+  @Serializable(ActionContainerSerializer::class)
   override var actions: ActionContainerImpl = ActionContainerImpl(),
 ) : Service

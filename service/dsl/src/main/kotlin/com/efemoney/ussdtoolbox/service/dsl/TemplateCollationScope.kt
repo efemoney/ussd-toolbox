@@ -22,5 +22,5 @@ import com.efemoney.ussdtoolbox.service.dsl.marker.ServiceDsl
 abstract class TemplateCollationScope {
 
   @ServiceDsl
-  protected abstract fun <T : Any> getValue(field: Field<T>): T
+  abstract fun <T : Any> getValue(field: Field<T>): T
 }

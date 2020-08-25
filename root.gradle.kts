@@ -156,6 +156,7 @@ subprojects {
         verbose = true
         freeCompilerArgs = freeCompilerArgs + listOf(
           "-progressive",
+          "-Xjvm-default=all",
           "-Xopt-in=kotlin.RequiresOptIn",
           "-Xopt-in=kotlin.ExperimentalStdlibApi",
           "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
@@ -169,7 +170,7 @@ subprojects {
       }
 
       (this as? KotlinJvmCompile)?.kotlinOptions {
-        useIR = true
+        useIR = false // I want to turn this on but there is some compilation issue, should report
         jvmTarget = "1.8"
       }
     }

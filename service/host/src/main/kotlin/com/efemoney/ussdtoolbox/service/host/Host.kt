@@ -16,8 +16,8 @@
 package com.efemoney.ussdtoolbox.service.host
 
 import com.efemoney.ussdtoolbox.service.ServiceScript
-import com.efemoney.ussdtoolbox.service.impl.ServiceImpl
-import com.efemoney.ussdtoolbox.service.impl.ServiceScopeImpl
+import com.efemoney.ussdtoolbox.service.api.Field
+import com.efemoney.ussdtoolbox.service.impl.*
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.PrintMessage
 import com.github.ajalt.clikt.parameters.arguments.argument
@@ -25,7 +25,10 @@ import com.github.ajalt.clikt.parameters.arguments.convert
 import com.github.ajalt.clikt.parameters.arguments.multiple
 import com.github.ajalt.clikt.parameters.types.file
 import kotlinx.serialization.encodeToString
-import java.util.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
+import kotlinx.serialization.modules.subclass
 import kotlin.script.experimental.api.ResultValue
 import kotlin.script.experimental.api.ResultValue.Error
 import kotlin.script.experimental.api.SourceCode
@@ -34,46 +37,55 @@ import kotlin.script.experimental.api.valueOrThrow
 import kotlin.script.experimental.host.toScriptSource
 import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 
-fun main(args: Array<String>) = object : CliktCommand(name = "ussdService") {
-
-  private val scriptingHost = BasicJvmScriptingHost()
+internal class UssdService : CliktCommand() {
 
   private val files by argument()
     .file(mustExist = true, canBeDir = false)
     .convert { it.toScriptSource() }
     .multiple(true)
 
+  private val json = Json {
+    prettyPrint = true
+    prettyPrintIndent = "  "
+    serializersModule = SerializersModule {
+      polymorphic(Field::class) {
+        subclass(NumberFieldImpl.serializer())
+        subclass(TextFieldImpl.serializer())
+        subclass(BooleanFieldImpl.serializer())
+      }
+    }
+  }
+
+  private val scriptingHost = BasicJvmScriptingHost()
+
   override fun run() = files.forEach { script ->
 
-    val scriptId = script.name ?: throw IllegalArgumentException("The script ()")
+    val scriptId = script.name!!
+    val scriptTarget = ServiceScopeImpl(ServiceImpl(scriptId, name = scriptId))
 
-    val scriptTarget = ServiceScopeImpl(
-      ServiceImpl(id = scriptId, name = scriptId.capitalize(Locale.ROOT))
-    )
-
-    val result = scriptingHost
-      .evalWithTemplate<ServiceScript>(script) { constructorArgs(scriptTarget) }
-      .valueOrThrow()
-      .returnValue
+    val result = scriptingHost.evalWithTemplate<ServiceScript>(script) { constructorArgs(scriptTarget) }
+      .valueOrThrow().returnValue
 
     if (result is Error) handleEvalFailure(script, result) else handleEvalSuccess(result)
   }
 
   private fun handleEvalFailure(script: SourceCode, result: Error) {
-    // report script errors together with stack trace
-    println(
-      "Exception while evaluating ${script.locationId?.let { "'$it'" } ?: "script"}: " +
-        result.error.stackTraceToString()
-    )
+    println("Exception while evaluating ${script.locationId ?: "script"}: ${result.error.stackTraceToString()}")
   }
 
   private fun handleEvalSuccess(result: ResultValue) {
 
-    val service = ((result.scriptInstance as? ServiceScript)?.scope as? ServiceScopeImpl)?.service
+    val service = result
+      .scriptInstance.cast<ServiceScript>()
+      ?.scope.cast<ServiceScopeImpl>()
+      ?.service
       ?: throw PrintMessage("Something wrong happened. The script is ... not a script 😢")
 
     println(json.encodeToString(service))
   }
 
-}.main(args)
+  private inline fun <reified T> Any?.cast(): T? = this as? T
+}
+
+fun main(args: Array<String>) = UssdService().main(args)
 

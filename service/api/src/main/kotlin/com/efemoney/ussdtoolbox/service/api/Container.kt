@@ -17,9 +17,8 @@
 
 package com.efemoney.ussdtoolbox.service.api
 
-interface Container<Key, Thing> : MutableMap<Key, Thing>, Iterable<Thing> {
-
-  fun getOrPut(key: Key, orDefault: (Key) -> @UnsafeVariance Thing): Thing
-
-  override fun get(key: Key): Thing
+interface Keyed {
+  val key: String
 }
+
+interface Container<Thing : Keyed> : Map<String, Thing>

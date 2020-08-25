@@ -17,8 +17,8 @@ package com.efemoney.ussdtoolbox.service.api
 
 typealias LanguageCode = String
 
-interface Language {
-  val code: LanguageCode
-  val name: String
-  val nativeName: String
-}
+data class Language(
+  val code: LanguageCode,
+  val name: String,
+  val nativeName: String,
+)

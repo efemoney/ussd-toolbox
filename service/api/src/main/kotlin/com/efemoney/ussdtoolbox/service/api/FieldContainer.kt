@@ -15,4 +15,4 @@
 
 package com.efemoney.ussdtoolbox.service.api
 
-interface FieldContainer<T: Field<*>> : Container<String, T>
+interface FieldContainer<T : Field<*>> : Container<T>

@@ -43,8 +43,7 @@ open class GenerateCountriesDsl @Inject constructor(objects: ObjectFactory) : De
 
     val apiPkg = "com.efemoney.ussdtoolbox.service.api"
     val dslPkg = "com.efemoney.ussdtoolbox.service.dsl"
-    val implPkg = "com.efemoney.ussdtoolbox.service.dsl.impl"
-    val classNames = ClassNames(apiPkg, dslPkg, implPkg)
+    val classNames = ClassNames(apiPkg, dslPkg)
 
     val generatedFileComment = generatedBy("GenerateCountriesDsl")
     val generatedFileSuppressAnn = generatedFilesSuppressAnnotation()
@@ -76,7 +75,7 @@ open class GenerateCountriesDsl @Inject constructor(objects: ObjectFactory) : De
       .addAnnotation(generatedFileSuppressAnn)
       .apply {
         countries.mapWith {
-          PropertySpec.builder(name.replace(".", ""), classNames.countryApi)
+          PropertySpec.builder(name.replace(".", ""), classNames.country)
             .getter(
               FunSpec.getterBuilder()
                 .addModifiers(KModifier.INLINE)
@@ -93,10 +92,10 @@ open class GenerateCountriesDsl @Inject constructor(objects: ObjectFactory) : De
     return TypeSpec.objectBuilder("Languages")
       .addProperties(
         languages.mapWith {
-          PropertySpec.builder(iso639_1, classNames.languageImpl)
+          PropertySpec.builder(iso639_1, classNames.language)
             .initializer(
               "%T(code = %S, name = %S, nativeName = %S)",
-              classNames.languageImpl,
+              classNames.language,
               iso639_1,
               name,
               nativeName
@@ -105,7 +104,7 @@ open class GenerateCountriesDsl @Inject constructor(objects: ObjectFactory) : De
         }
       )
       .addProperty(
-        PropertySpec.builder("all", MAP.parameterizedBy(classNames.languageCode, classNames.languageApi))
+        PropertySpec.builder("all", MAP.parameterizedBy(classNames.languageCode, classNames.language))
           .initializer(
             languages
               .mapWith { CodeBlock.of("%S·to·%N", iso639_1, iso639_1) }
@@ -117,7 +116,7 @@ open class GenerateCountriesDsl @Inject constructor(objects: ObjectFactory) : De
         FunSpec.builder("findByLanguageCode")
           .addAnnotation(JvmStatic::class)
           .addParameter("languageCode", classNames.languageCode)
-          .returns(classNames.languageApi.copy(nullable = true))
+          .returns(classNames.language.copy(nullable = true))
           .addCode("return all[languageCode]")
           .build()
       )
@@ -128,7 +127,7 @@ open class GenerateCountriesDsl @Inject constructor(objects: ObjectFactory) : De
     return TypeSpec.objectBuilder("Countries")
       .addProperties(
         countries.mapWith {
-          PropertySpec.builder(alpha2Code, classNames.countryApi)
+          PropertySpec.builder(alpha2Code, classNames.country)
             .initializer(
               """%T(
                 |  code = %S,
@@ -138,7 +137,7 @@ open class GenerateCountriesDsl @Inject constructor(objects: ObjectFactory) : De
                 |  altSpellings = %L,
                 |  languages = %L
                 |)""".trimMargin(),
-              classNames.countryImpl,
+              classNames.country,
               alpha2Code,
               name,
               nativeName,
@@ -161,7 +160,7 @@ open class GenerateCountriesDsl @Inject constructor(objects: ObjectFactory) : De
         }
       )
       .addProperty(
-        PropertySpec.builder("all", MAP.parameterizedBy(classNames.countryCode, classNames.countryApi))
+        PropertySpec.builder("all", MAP.parameterizedBy(classNames.countryCode, classNames.country))
           .initializer(
             countries
               .mapWith { CodeBlock.of("%S·to·%N", alpha2Code, alpha2Code) }
@@ -172,7 +171,7 @@ open class GenerateCountriesDsl @Inject constructor(objects: ObjectFactory) : De
       .addFunction(
         FunSpec.builder("findByCountryCode")
           .addParameter("countryCode", classNames.countryCode)
-          .returns(classNames.countryApi.copy(nullable = true))
+          .returns(classNames.country.copy(nullable = true))
           .addCode("return all[countryCode]")
           .jvmStatic()
           .build()
@@ -181,13 +180,11 @@ open class GenerateCountriesDsl @Inject constructor(objects: ObjectFactory) : De
   }
 }
 
-internal class ClassNames(apiPkg: String, dslPkg: String, dslImplPkg: String) {
+internal class ClassNames(apiPkg: String, dslPkg: String) {
   val countryCode = ClassName(apiPkg, "CountryCode")
   val languageCode = ClassName(apiPkg, "LanguageCode")
-  val countryApi = ClassName(apiPkg, "Country")
-  val languageApi = ClassName(apiPkg, "Language")
-  val countryImpl = ClassName(dslImplPkg, "CountryImpl")
-  val languageImpl = ClassName(dslImplPkg, "LanguageImpl")
+  val country = ClassName(apiPkg, "Country")
+  val language = ClassName(apiPkg, "Language")
   val languagesDsl = ClassName(dslPkg, "Languages")
 }
 
