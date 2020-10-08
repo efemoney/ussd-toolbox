@@ -21,7 +21,6 @@ import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
-import org.gradle.api.file.ConfigurableFileTree
 import org.gradle.api.file.Directory
 import org.gradle.api.file.RegularFile
 import org.gradle.api.plugins.AppliedPlugin
@@ -70,10 +69,10 @@ inline val PluginDependenciesSpec.navigationSafeArgs: PluginDependencySpec
   get() = id("androidx.navigation.safeargs.kotlin")
 
 inline val PluginDependenciesSpec.`idea-ext`: PluginDependencySpec
-  get() = id("org.jetbrains.gradle.plugin.idea-ext") version "0.8.1"
+  get() = id("org.jetbrains.gradle.plugin.idea-ext") version "0.9"
 
 inline val PluginDependenciesSpec.`gradle-versions`: PluginDependencySpec
-  get() = id("com.github.ben-manes.versions") version "0.29.0"
+  get() = id("com.github.ben-manes.versions") version "0.33.0"
 
 inline fun <T : AndroidSourceSet> NamedDomainObjectContainer<T>.addKotlinDirectories() =
   configureEach { java.srcDir("src/$name/kotlin") }

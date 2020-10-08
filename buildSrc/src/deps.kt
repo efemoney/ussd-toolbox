@@ -18,32 +18,32 @@
 import org.gradle.api.internal.artifacts.dsl.ParsedModuleStringNotation
 
 object Versions {
-  const val agp = "4.2.0-alpha07"
-  const val kotlin = "1.4.0"
+  const val agp = "4.2.0-alpha13"
+  const val kotlin = "1.4.20-M1"
 
   const val coroutines = "1.3.9"
-  const val serialization = "1.0.0-RC"
-  const val dagger = "2.28.3"
-  const val moshi = "1.9.3"
+  const val serialization = "1.0.0-RC2"
+  const val dagger = "2.29.1"
+  const val moshi = "1.11.0"
   const val retrofit = "2.9.0"
-  const val okio = "2.8.0"
-  const val okhttp = "4.8.1"
+  const val okio = "2.9.0"
+  const val okhttp = "4.9.0"
 
   const val kotlinpoet = "1.6.0"
-  const val material = "1.3.0-alpha02"
+  const val material = "1.3.0-alpha03"
 
   const val timber = "4.7.1"
 
   object androidx {
-    const val core = "1.5.0-alpha02"
-    const val activity = "1.2.0-alpha08"
+    const val core = "1.5.0-alpha04"
+    const val activity = "1.2.0-beta01"
     const val appcompat = "1.3.0-alpha02"
-    const val fragment = "1.3.0-alpha08"
+    const val fragment = "1.3.0-beta01"
     const val coordinatorLayout = "1.1.0"
     const val constraintLayout = "2.0.0"
-    const val recyclerview = "1.2.0-alpha05"
+    const val recyclerview = "1.2.0-alpha06"
     const val recyclerviewSelection = "1.1.0-alpha06"
-    const val lifecycle = "2.3.0-alpha07"
+    const val lifecycle = "2.3.0-beta01"
     const val navigation = "2.3.0"
     const val room = "2.2.1"
   }
@@ -98,6 +98,7 @@ object Deps {
     }
     object serialization {
       const val core = "org.jetbrains.kotlinx:kotlinx-serialization-core:${Versions.serialization}"
+      const val json = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serialization}"
       const val hocon = "org.jetbrains.kotlinx:kotlinx-serialization-hocon:${Versions.serialization}"
     }
   }

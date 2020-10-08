@@ -25,7 +25,7 @@ import org.gradle.api.model.ObjectFactory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
-import tasks.internal.CountriesJsonParser
+import tasks.internal.CountriesJsonParser.parse
 import tasks.internal.CountryDto
 import tasks.internal.LanguageDto
 import javax.inject.Inject
@@ -48,8 +48,7 @@ open class GenerateCountriesDsl @Inject constructor(objects: ObjectFactory) : De
     val generatedFileComment = generatedBy("GenerateCountriesDsl")
     val generatedFileSuppressAnn = generatedFilesSuppressAnnotation()
 
-    val countries = CountriesJsonParser.parse(countriesJsonFile.asFile.get())
-      .sortedBy(CountryDto::alpha2Code)
+    val countries = parse(countriesJsonFile.asFile.get()).sortedBy(CountryDto::alpha2Code)
 
     val languages = countries.flatMap(CountryDto::languages).filter { it.iso639_1.isNotBlank() }
       .toSet().sortedBy(LanguageDto::iso639_1)

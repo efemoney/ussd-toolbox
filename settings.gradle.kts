@@ -26,9 +26,7 @@ gradleEnterprise {
     termsOfServiceAgree = "yes"
 
     buildScanPublished {
-      if (System.getenv("CI") != "true") exec {
-        commandLine("open", buildScanUri)
-      }
+      if (System.getenv("CI") != "true") exec { commandLine("open", buildScanUri) }
     }
   }
 }

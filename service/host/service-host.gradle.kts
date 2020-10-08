@@ -39,7 +39,7 @@ dependencies {
   implementation(Deps.kotlin.stdlib.jdk8)
   implementation(Deps.kotlin.scripting.jvmHost)
   implementation(Deps.kotlinx.coroutines.core)
-  implementation(Deps.kotlinx.serialization.core)
+  implementation(Deps.kotlinx.serialization.json)
 
   implementation("com.github.ajalt:clikt:2.8.0")
 }

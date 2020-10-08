@@ -21,5 +21,5 @@ interface Template : Keyed {
 
   var value: String
 
-  val requiredInput: Set<String>
+  val requiredFields: Set<String>
 }

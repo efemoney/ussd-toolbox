@@ -17,12 +17,6 @@
 
 package com.efemoney.ussdtoolbox.service.dsl
 
-fun String.toActionKey(): String {
-  return split(Regex("[\\W]+")).asSequence()
-    .map(String::toLowerCase)
-    .map(String::capitalize)
-    .joinToString("")
-    .decapitalize()
-}
+fun String.toActionKey() = split("[\\W]+".toRegex()).joinToString("_", transform = String::toLowerCase)
 
-fun String.isValidResourceId() = Regex("[\\w]+").matchEntire(this) != null
+fun String.isValidResourceId() = "[\\w]+".toRegex().matchEntire(this) != null

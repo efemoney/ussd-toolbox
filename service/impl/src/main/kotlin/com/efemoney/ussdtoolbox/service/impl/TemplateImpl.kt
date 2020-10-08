@@ -25,6 +25,6 @@ data class TemplateImpl(
 
   override var value: String,
 
-  override val requiredInput: Set<String>
+  override val requiredFields: Set<String>
 
 ) : Template

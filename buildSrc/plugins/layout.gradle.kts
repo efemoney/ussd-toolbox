@@ -16,7 +16,6 @@
 package simple
 
 import com.android.build.gradle.BaseExtension
-import withAnyPlugin
 
 fun disambiguate(name: String, principal: String, suffix: String? = principal) = when (name) {
   "main" -> principal
