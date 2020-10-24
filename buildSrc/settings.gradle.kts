@@ -13,8 +13,20 @@
  * limitations under the License.
  */
 
-pluginManagement {
+rootProject.buildFileName = "buildSrc.gradle.kts"
 
+pluginManagement {
+  repositories {
+    google()
+    gradlePluginPortal()
+  }
+  resolutionStrategy.eachPlugin {
+    if (requested.id.id == "symbol-processing") // Support ksp plugin
+      useModule("com.google.devtools.ksp:symbol-processing:1.4.10-dev-experimental-20201023")
+  }
+}
+
+dependencyResolutionManagement {
   repositories {
     maven("https://dl.bintray.com/kotlin/kotlin-eap") {
       content {
@@ -22,21 +34,12 @@ pluginManagement {
         includeVersionByRegex("org.jetbrains.kotlin", ".*", ".*-M\\d+.*")
       }
     }
-    gradlePluginPortal()
-  }
-
-  resolutionStrategy {
-    eachPlugin {
-      when (requested.id.id) {
-        "org.jetbrains.kotlin.plugin.serialization" ->
-          useModule("org.jetbrains.kotlin:kotlin-serialization:1.4.20-M1")
-
-        "org.jetbrains.kotlin.jvm",
-        "org.jetbrains.kotlin.kapt" ->
-          useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20-M1")
+    maven("https://kotlin.bintray.com/kotlinx/") {
+      content {
+        includeModuleByRegex(".*kotlinx.*", ".*kotlinx.*")
       }
     }
+    google()
+    jcenter()
   }
 }
-
-rootProject.buildFileName = "buildSrc.gradle.kts"

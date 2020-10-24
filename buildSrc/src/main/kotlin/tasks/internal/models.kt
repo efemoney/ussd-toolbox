@@ -13,21 +13,24 @@
  * limitations under the License.
  */
 
-plugins {
-  `kotlin-dsl`
-  id("symbol-processing")
-}
+package tasks.internal
 
-dependencies {
-  // buildSrc dependencies
-  implementation("com.squareup.okhttp3:okhttp:4.10.0-RC1")
-  implementation("com.squareup:kotlinpoet:1.7.2")
-  implementation("com.squareup.moshi:moshi:1.11.0")
-  ksp("dev.zacsweers.moshix:moshi-ksp:0.4.0")
+import com.squareup.moshi.JsonClass
 
-  // project plugin dependencies
-  implementation(kotlin("gradle-plugin", "1.4.20-M2"))
-  implementation(kotlin("serialization", "1.4.20-M2"))
-  implementation("com.android.tools.build:gradle:4.2.0-alpha14")
-  implementation("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.1")
-}
+@JsonClass(generateAdapter = true)
+internal data class CountryDto(
+  val name: String,
+  val nativeName: String,
+  val alpha2Code: String,
+  val altSpellings: List<String>,
+  val translations: Map<String, String>,
+  val languages: List<LanguageDto>
+)
+
+@JsonClass(generateAdapter = true)
+internal data class LanguageDto(
+  val name: String,
+  val nativeName: String,
+  val iso639_1: String = "",
+  val iso639_2: String = ""
+)

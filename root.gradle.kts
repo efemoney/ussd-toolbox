@@ -55,7 +55,7 @@ subprojects {
     }
   }
 
-  pluginManager.withAnyPlugin("java") {
+  pluginManager.withPlugin("java") {
 
     configure<JavaPluginExtension> {
       sourceCompatibility = java8

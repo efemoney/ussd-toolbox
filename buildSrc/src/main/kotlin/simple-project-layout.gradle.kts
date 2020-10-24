@@ -13,8 +13,6 @@
  * limitations under the License.
  */
 
-package simple
-
 import com.android.build.gradle.BaseExtension
 
 fun disambiguate(name: String, principal: String, suffix: String? = principal) = when (name) {
@@ -28,6 +26,7 @@ pluginManager.withAnyPlugin("android", "android-library") {
     sourceSets.configureEach {
       java.srcDir(disambiguate(name, "src", null))
       res.srcDir(disambiguate(name, "res"))
+      assets.srcDir(disambiguate(name, "assets"))
       manifest.srcFile(disambiguate(name, "AndroidManifest.xml"))
     }
   }

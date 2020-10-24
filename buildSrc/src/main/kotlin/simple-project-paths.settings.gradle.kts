@@ -13,24 +13,3 @@
  * limitations under the License.
  */
 
-package tasks.internal
-
-import kotlinx.serialization.Serializable
-
-@Serializable
-internal data class CountryDto(
-  val name: String,
-  val nativeName: String,
-  val alpha2Code: String,
-  val altSpellings: List<String>,
-  val translations: Map<String, String>,
-  val languages: List<LanguageDto>
-)
-
-@Serializable
-internal data class LanguageDto(
-  val name: String,
-  val nativeName: String,
-  val iso639_1: String = "",
-  val iso639_2: String = ""
-)

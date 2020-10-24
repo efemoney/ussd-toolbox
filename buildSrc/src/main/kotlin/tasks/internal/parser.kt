@@ -15,16 +15,15 @@
 
 package tasks.internal
 
-import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.json.Json
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
 import java.io.File
 
 internal object CountriesJsonParser {
 
-  private val json = Json { ignoreUnknownKeys = true }
+  private val moshi = Moshi.Builder().build()
 
-  fun parse(from: File) = json.decodeFromString(
-    deserializer = ListSerializer(CountryDto.serializer()),
-    string = from.readText()
-  )
+  @OptIn(ExperimentalStdlibApi::class)
+  fun parse(from: File) =
+    moshi.adapter<List<CountryDto>>().fromJson(from.readText())!!
 }

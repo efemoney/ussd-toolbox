@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("NOTHING_TO_INLINE", "UnstableApiUsage")
+@file:Suppress("NOTHING_TO_INLINE", "UnstableApiUsage", "ObjectPropertyName")
 
 import com.android.build.api.dsl.AndroidSourceSet
 import com.android.build.gradle.LibraryExtension
@@ -25,25 +25,20 @@ import org.gradle.api.file.Directory
 import org.gradle.api.file.RegularFile
 import org.gradle.api.plugins.AppliedPlugin
 import org.gradle.api.plugins.PluginManager
+import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.maven
 import org.gradle.kotlin.dsl.version
 import org.gradle.plugin.use.PluginDependenciesSpec
 import org.gradle.plugin.use.PluginDependencySpec
 
-inline fun Project.buildDir(path: String): Directory = layout.buildDirectory.dir(path).get()
+inline fun Project.buildDir(path: String): Provider<Directory> = layout.buildDirectory.dir(path)
 
-inline fun Project.buildFile(path: String): RegularFile = layout.buildDirectory.file(path).get()
+inline fun Project.buildFile(path: String): Provider<RegularFile> = layout.buildDirectory.file(path)
 
 inline fun Project.hasDependency(dependencyNotation: Any, inConfiguration: String = "implementation"): Boolean {
-
   val wanted = dependencies.create(dependencyNotation)
-
-  return configurations[inConfiguration]
-    .incoming
-    .dependencies
-    .matching { it == wanted }
-    .isNotEmpty()
+  return configurations[inConfiguration].incoming.dependencies.matching(wanted::equals).isNotEmpty()
 }
 
 inline fun PluginManager.withAnyPlugin(vararg plugins: String, action: Action<AppliedPlugin>) =

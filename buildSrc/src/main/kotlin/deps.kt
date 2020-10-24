@@ -18,18 +18,19 @@
 import org.gradle.api.internal.artifacts.dsl.ParsedModuleStringNotation
 
 object Versions {
-  const val agp = "4.2.0-alpha13"
-  const val kotlin = "1.4.20-M1"
+  const val agp = "4.2.0-alpha14"
+  const val kotlin = "1.4.20-M2"
 
-  const val coroutines = "1.3.9"
-  const val serialization = "1.0.0-RC2"
+  const val coroutines = "1.4.0-M1"
+  const val serialization = "1.0.0"
   const val dagger = "2.29.1"
+  const val hilt = "$dagger-alpha"
   const val moshi = "1.11.0"
   const val retrofit = "2.9.0"
   const val okio = "2.9.0"
-  const val okhttp = "4.9.0"
+  const val okhttp = "4.10.0-RC1"
 
-  const val kotlinpoet = "1.6.0"
+  const val kotlinpoet = "1.7.2"
   const val material = "1.3.0-alpha03"
 
   const val timber = "4.7.1"
@@ -40,11 +41,11 @@ object Versions {
     const val appcompat = "1.3.0-alpha02"
     const val fragment = "1.3.0-beta01"
     const val coordinatorLayout = "1.1.0"
-    const val constraintLayout = "2.0.0"
+    const val constraintLayout = "2.0.2"
     const val recyclerview = "1.2.0-alpha06"
     const val recyclerviewSelection = "1.1.0-alpha06"
     const val lifecycle = "2.3.0-beta01"
-    const val navigation = "2.3.0"
+    const val navigation = "2.3.1"
     const val room = "2.2.1"
   }
 
@@ -154,6 +155,14 @@ object Deps {
 
   object dagger : Dep("com.google.dagger:dagger:${Versions.dagger}") {
     const val compiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+
+    object hilt : Dep("com.google.dagger:hilt-core:${Versions.hilt}") {
+      const val compiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+
+      object hilt : Dep("com.google.dagger:hilt-android:${Versions.hilt}") {
+        const val testing = "com.google.dagger:hilt-android-testing:${Versions.hilt}"
+      }
+    }
   }
 
   object okHttp : Dep("com.squareup.okhttp3:okhttp:${Versions.okhttp}") {

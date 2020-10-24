@@ -24,14 +24,14 @@ plugins {
 
 android {
 
-  (buildTypes) {
+  buildTypes {
 
-    "debug" {
+    named("debug") {
       applicationIdSuffix = ".debug"
       versionNameSuffix = "-debug"
     }
 
-    "release" {
+    named("release") {
       postprocessing {
         isObfuscate = true
         isOptimizeCode = true

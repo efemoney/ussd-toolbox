@@ -21,7 +21,7 @@ plugins {
 }
 
 application {
-  mainClassName = "com.efemoney.ussdtoolbox.service.host.HostKt"
+  mainClass.set("com.efemoney.ussdtoolbox.service.host.HostKt")
 }
 
 tasks.run.configure {
