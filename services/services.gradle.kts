@@ -22,9 +22,9 @@ kotlin.sourceSets {
 }
 
 dependencies {
-  implementation(project(":service-def"))
-  implementation(project(":service-api"))
-  implementation(project(":service-dsl"))
+  implementation(projects.serviceDef)
+  implementation(projects.serviceApi)
+  implementation(projects.serviceDsl)
 
   implementation(Deps.kotlin.stdlib.jdk8)
 }

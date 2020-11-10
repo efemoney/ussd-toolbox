@@ -18,11 +18,11 @@
 import org.gradle.api.internal.artifacts.dsl.ParsedModuleStringNotation
 
 object Versions {
-  const val agp = "4.2.0-alpha14"
-  const val kotlin = "1.4.20-M2"
+  const val agp = "4.2.0-alpha16"
+  const val kotlin = "1.4.20-RC"
 
-  const val coroutines = "1.4.0-M1"
-  const val serialization = "1.0.0"
+  const val coroutines = "1.4.1"
+  const val serialization = "1.0.1"
   const val dagger = "2.29.1"
   const val hilt = "$dagger-alpha"
   const val moshi = "1.11.0"
@@ -41,7 +41,7 @@ object Versions {
     const val appcompat = "1.3.0-alpha02"
     const val fragment = "1.3.0-beta01"
     const val coordinatorLayout = "1.1.0"
-    const val constraintLayout = "2.0.2"
+    const val constraintLayout = "2.0.4"
     const val recyclerview = "1.2.0-alpha06"
     const val recyclerviewSelection = "1.1.0-alpha06"
     const val lifecycle = "2.3.0-beta01"
@@ -131,7 +131,6 @@ object Deps {
       const val safeArgsGenerator = "androidx.navigation:navigation-safe-args-generator:${Versions.androidx.navigation}"
       const val safeArgsGradlePlugin =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.androidx.navigation}"
-      const val ui = "androidx.navigation:navigation-ui:${Versions.androidx.navigation}"
       const val uiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.androidx.navigation}"
     }
 
@@ -140,14 +139,11 @@ object Deps {
       const val commonJava8 = "androidx.lifecycle:lifecycle-common-java8:${Versions.androidx.lifecycle}"
       const val compiler = "androidx.lifecycle:lifecycle-compiler:${Versions.androidx.lifecycle}"
       const val extensions = "androidx.lifecycle:lifecycle-extensions:${Versions.androidx.lifecycle}"
-      const val livedata = "androidx.lifecycle:lifecycle-livedata:${Versions.androidx.lifecycle}"
       const val livedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.androidx.lifecycle}"
-      const val livedataCore = "androidx.lifecycle:lifecycle-livedata-core:${Versions.androidx.lifecycle}"
       const val livedataCoreKtx = "androidx.lifecycle:lifecycle-livedata-core-ktx:${Versions.androidx.lifecycle}"
       const val process = "androidx.lifecycle:lifecycle-process:${Versions.androidx.lifecycle}"
       const val runtime = "androidx.lifecycle:lifecycle-runtime:${Versions.androidx.lifecycle}"
       const val service = "androidx.lifecycle:lifecycle-service:${Versions.androidx.lifecycle}"
-      const val viewmodel = "androidx.lifecycle:lifecycle-viewmodel:${Versions.androidx.lifecycle}"
       const val viewmodelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.androidx.lifecycle}"
       const val viewmodelSavedstate = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.androidx.lifecycle}"
     }

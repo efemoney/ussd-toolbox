@@ -13,12 +13,15 @@
  * limitations under the License.
  */
 
-plugins {
-  `simple-project-layout`
-  kotlin("jvm")
-}
+package com.efemoney.ussdtoolbox.data.internal
 
-dependencies {
-  implementation(Deps.kotlin.stdlib.jdk8)
-  //implementation(libs.kotlin)
+import com.efemoney.ussdtoolbox.data.ServicesRepo
+import com.efemoney.ussdtoolbox.service.api.Service
+import javax.inject.Inject
+
+internal class ServicesRepoImpl @Inject constructor() : ServicesRepo {
+
+  override suspend fun services(): List<Service> {
+    TODO()
+  }
 }

@@ -24,14 +24,14 @@ plugins {
 
 android {
 
-  buildTypes {
+  (buildTypes) {
 
-    named("debug") {
+    "debug" {
       applicationIdSuffix = ".debug"
       versionNameSuffix = "-debug"
     }
 
-    named("release") {
+    "release" {
       postprocessing {
         isObfuscate = true
         isOptimizeCode = true
@@ -62,8 +62,8 @@ android {
 }
 
 dependencies {
-  implementation(projects.app.data)
-  implementation(projects.app.design)
+  implementation(project(":app:data"))
+  implementation(project(":app:design"))
 
   implementation(Deps.timber)
 
@@ -74,7 +74,6 @@ dependencies {
   kapt(Deps.dagger.compiler)
   implementation(Deps.jsr250)
   implementation(Deps.dagger)
-
 
   implementation(Deps.androidx.coreKtx)
   implementation(Deps.androidx.fragmentKtx)

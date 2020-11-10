@@ -32,6 +32,7 @@ gradleEnterprise {
 }
 
 enableFeaturePreview("VERSION_ORDERING_V2")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
   ":app",
@@ -48,6 +49,7 @@ include(
   ":server"
 )
 
+rootProject.name = "ussd-toolbox"
 rootProject.buildFileName = "root.gradle.kts"
 
 rootProject.allChildren.forEach {
@@ -73,5 +75,16 @@ rootProject.allChildren.forEach {
   project(path).apply {
     buildFileName = projectBuildFile
     projectDir = projectDirFile
+  }
+}
+
+dependencyResolutionManagement {
+  dependenciesModel("default") {
+
+    version("kotlin", "1.4.20-RC")
+
+    alias("kotlin")
+      .to("org.jetbrains.kotlin", "kotlin-stdlib-jdk8")
+      .versionRef("kotlin")
   }
 }

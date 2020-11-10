@@ -13,35 +13,27 @@
  * limitations under the License.
  */
 
-import tasks.DownloadCountries
-import tasks.GenerateCountriesDsl
-
 plugins {
-  kotlin("jvm")
   `simple-project-layout`
-}
-
-val generatedSrcDir = buildDir("generated/source/countries")
-
-kotlin.sourceSets.main {
-  kotlin.srcDir(generatedSrcDir)
-}
-
-tasks {
-
-  register<GenerateCountriesDsl>("countriesDsl") {
-    val downloadTask = rootProject.tasks.named<DownloadCountries>("downloadCountries")
-    outputDir.set(generatedSrcDir)
-    countriesJsonFile.set(downloadTask.flatMap(DownloadCountries::countriesJsonFile))
-  }
-
-  compileKotlin {
-    dependsOn("countriesDsl")
-  }
+  android("library")
+  kotlin("android")
+  kotlin("kapt")
 }
 
 dependencies {
-  api(projects.serviceApi)
+  api(project(":service-api"))
 
   implementation(Deps.kotlin.stdlib.jdk8)
+  implementation(Deps.androidx.appcompat)
+  implementation(Deps.material.android)
+
+  kapt(Deps.moshi.kotlinCodegen)
+  implementation(Deps.moshi)
+  implementation(Deps.moshi.adapters)
+
+  implementation(Deps.okio)
+  implementation(Deps.okHttp)
+  implementation(Deps.okHttp.logging)
+  implementation(Deps.retrofit)
+  implementation(Deps.retrofit.converter.moshi)
 }

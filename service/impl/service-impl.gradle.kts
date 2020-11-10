@@ -14,13 +14,14 @@
  */
 
 plugins {
+  `simple-project-layout`
   kotlin("jvm")
   kotlin("plugin.serialization")
 }
 
 dependencies {
-  api(project(":service-api"))
-  api(project(":service-dsl"))
+  api(projects.serviceApi)
+  api(projects.serviceDsl)
   implementation(Deps.kotlin.stdlib.jdk8)
   implementation(Deps.kotlinx.serialization.core)
 }

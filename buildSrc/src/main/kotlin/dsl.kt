@@ -67,7 +67,7 @@ inline val PluginDependenciesSpec.`idea-ext`: PluginDependencySpec
   get() = id("org.jetbrains.gradle.plugin.idea-ext") version "0.9"
 
 inline val PluginDependenciesSpec.`gradle-versions`: PluginDependencySpec
-  get() = id("com.github.ben-manes.versions") version "0.33.0"
+  get() = id("com.github.ben-manes.versions") version "0.36.0"
 
 inline fun <T : AndroidSourceSet> NamedDomainObjectContainer<T>.addKotlinDirectories() =
   configureEach { java.srcDir("src/$name/kotlin") }

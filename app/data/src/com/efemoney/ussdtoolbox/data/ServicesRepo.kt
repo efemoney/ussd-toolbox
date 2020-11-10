@@ -13,12 +13,11 @@
  * limitations under the License.
  */
 
-plugins {
-  `simple-project-layout`
-  kotlin("jvm")
-}
+package com.efemoney.ussdtoolbox.data
 
-dependencies {
-  implementation(Deps.kotlin.stdlib.jdk8)
-  //implementation(libs.kotlin)
+import com.efemoney.ussdtoolbox.service.api.Service
+
+interface ServicesRepo {
+
+  suspend fun services(): List<Service>
 }

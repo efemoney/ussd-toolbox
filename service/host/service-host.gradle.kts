@@ -16,6 +16,7 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
+  `simple-project-layout`
   application
   kotlin("jvm")
 }
@@ -33,8 +34,8 @@ tasks.run.configure {
 }
 
 dependencies {
-  implementation(project(":service-def"))
-  implementation(project(":service-impl"))
+  implementation(projects.serviceDef)
+  implementation(projects.serviceImpl)
 
   implementation(Deps.kotlin.stdlib.jdk8)
   implementation(Deps.kotlin.scripting.jvmHost)

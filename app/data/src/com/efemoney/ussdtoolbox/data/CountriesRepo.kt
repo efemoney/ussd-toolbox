@@ -13,12 +13,15 @@
  * limitations under the License.
  */
 
-plugins {
-  `simple-project-layout`
-  kotlin("jvm")
-}
+package com.efemoney.ussdtoolbox.data
 
-dependencies {
-  implementation(Deps.kotlin.stdlib.jdk8)
-  //implementation(libs.kotlin)
+import com.efemoney.ussdtoolbox.service.api.Country
+
+interface CountriesRepo {
+
+  suspend fun countries(): List<Country>
+
+  suspend fun selectedCountry(): Country
+
+  suspend fun selectCountry(selected: Country)
 }

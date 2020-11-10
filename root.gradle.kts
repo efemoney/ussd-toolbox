@@ -18,12 +18,9 @@
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
-import org.jetbrains.gradle.ext.ProjectSettings
-import org.jetbrains.gradle.ext.TaskTriggersConfig
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
-import org.jetbrains.kotlin.utils.addToStdlib.cast
 import tasks.DownloadCountries
 import org.gradle.api.JavaVersion.VERSION_1_8 as java8
 
@@ -150,7 +147,6 @@ subprojects {
   }
 
   afterEvaluate {
-
     tasks.withType<KotlinCompile<*>>().configureEach {
       kotlinOptions {
         verbose = true
@@ -173,16 +169,6 @@ subprojects {
         useIR = false // I want to turn this on but there is some compilation issue, should report
         jvmTarget = "1.8"
       }
-    }
-
-    // Configure intelliJ to run :service-def:assemble after sync
-    if (project.name == "service-def") {
-      rootProject.idea.project
-        .cast<ExtensionAware>()
-        .the<ProjectSettings>()
-        .cast<ExtensionAware>()
-        .the<TaskTriggersConfig>()
-        .afterSync(tasks.named("assemble"))
     }
   }
 }

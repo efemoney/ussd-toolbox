@@ -13,12 +13,23 @@
  * limitations under the License.
  */
 
-plugins {
-  `simple-project-layout`
-  kotlin("jvm")
-}
+package com.efemoney.ussdtoolbox.data.internal
 
-dependencies {
-  implementation(Deps.kotlin.stdlib.jdk8)
-  //implementation(libs.kotlin)
+import com.efemoney.ussdtoolbox.data.CountriesRepo
+import com.efemoney.ussdtoolbox.service.api.Country
+import javax.inject.Inject
+
+internal class CountriesRepoImpl @Inject constructor() : CountriesRepo {
+
+  override suspend fun selectCountry(selected: Country) {
+    TODO()
+  }
+
+  override suspend fun selectedCountry(): Country {
+    TODO()
+  }
+
+  override suspend fun countries(): List<Country> {
+    TODO()
+  }
 }

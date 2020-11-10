@@ -15,29 +15,20 @@
 
 import com.android.build.gradle.BaseExtension
 
-fun disambiguate(name: String, principal: String, suffix: String? = principal) = when (name) {
-  "main" -> principal
-  else -> "$name${suffix?.let { "-$it" }.orEmpty()}"
-}
+fun simpleName(name: String, suffix: String) = if (name == "main") suffix else "$name-$suffix"
 
 pluginManager.withAnyPlugin("android", "android-library") {
-
-  configure<BaseExtension> {
-    sourceSets.configureEach {
-      java.srcDir(disambiguate(name, "src", null))
-      res.srcDir(disambiguate(name, "res"))
-      assets.srcDir(disambiguate(name, "assets"))
-      manifest.srcFile(disambiguate(name, "AndroidManifest.xml"))
-    }
+  the<BaseExtension>().sourceSets.configureEach {
+    java.srcDir(simpleName(name, "src"))
+    res.srcDir(simpleName(name, "res"))
+    assets.srcDir(simpleName(name, "assets"))
+    manifest.srcFile(simpleName(name, "AndroidManifest.xml"))
   }
 }
 
-pluginManager.withPlugin("java") {
-
-  configure<JavaPluginConvention> {
-    sourceSets.configureEach {
-      java.srcDir(disambiguate(name, "src", null))
-      resources.srcDir(disambiguate(name, "resources"))
-    }
+pluginManager.withAnyPlugin("java", "kotlin") {
+  the<JavaPluginConvention>().sourceSets.configureEach {
+    java.srcDir(simpleName(name, "src"))
+    resources.srcDir(simpleName(name, "resources"))
   }
 }

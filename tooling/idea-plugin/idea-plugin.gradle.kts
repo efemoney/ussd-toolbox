@@ -14,6 +14,7 @@
  */
 
 plugins {
+  `simple-project-layout`
   kotlin("jvm")
 }
 

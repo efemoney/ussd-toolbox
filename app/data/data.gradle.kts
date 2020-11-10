@@ -14,6 +14,7 @@
  */
 
 plugins {
+  `simple-project-layout`
   android("library")
   kotlin("android")
   kotlin("kapt")

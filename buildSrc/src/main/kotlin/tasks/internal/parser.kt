@@ -23,7 +23,5 @@ internal object CountriesJsonParser {
 
   private val moshi = Moshi.Builder().build()
 
-  @OptIn(ExperimentalStdlibApi::class)
-  fun parse(from: File) =
-    moshi.adapter<List<CountryDto>>().fromJson(from.readText())!!
+  fun parse(from: File) = moshi.adapter<List<CountryDto>>().fromJson(from.readText())!!
 }

@@ -13,13 +13,27 @@
  * limitations under the License.
  */
 
+import org.gradle.plugins.ide.idea.model.IdeaModel
+import org.jetbrains.gradle.ext.ProjectSettings
+import org.jetbrains.gradle.ext.TaskTriggersConfig
+import org.jetbrains.kotlin.utils.addToStdlib.cast
+
 plugins {
+  `simple-project-layout`
   kotlin("jvm")
 }
 
+// Configure intelliJ to run :service-def:assemble after sync
+rootProject.the<IdeaModel>().project
+  .cast<ExtensionAware>()
+  .the<ProjectSettings>()
+  .cast<ExtensionAware>()
+  .the<TaskTriggersConfig>()
+  .afterSync(tasks.named("assemble"))
+
 dependencies {
-  api(project(":service-api"))
-  api(project(":service-dsl"))
+  api(projects.serviceApi)
+  api(projects.serviceDsl)
   api(Deps.kotlin.scripting.jvm)
 
   implementation(Deps.kotlin.stdlib.jdk8)

@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "name": "Afghanistan",
+      "flag": "@sample/flags[1]"
+    },
+    {
+      "name": "United Arab Emirates",
+      "flag": "@sample/flags[1]"
+    },
+    {
+      "name": "Nigeria",
+      "flag": "@sample/flags[1]"
+    }
+  ]
+}

@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+rootProject.name = "build-src"
 rootProject.buildFileName = "buildSrc.gradle.kts"
 
 pluginManagement {
@@ -29,15 +30,10 @@ pluginManagement {
 dependencyResolutionManagement {
   repositories {
     maven("https://dl.bintray.com/kotlin/kotlin-eap") {
-      content {
-        includeVersionByRegex("org.jetbrains.kotlin", ".*", ".*eap.*")
-        includeVersionByRegex("org.jetbrains.kotlin", ".*", ".*-M\\d+.*")
-      }
+      content { includeVersionByRegex("org.jetbrains.kotlin", ".*", "(.*eap.*|.*-M\\d+.*)") }
     }
     maven("https://kotlin.bintray.com/kotlinx/") {
-      content {
-        includeModuleByRegex(".*kotlinx.*", ".*kotlinx.*")
-      }
+      content { includeModuleByRegex(".*kotlinx.*", ".*kotlinx.*") }
     }
     google()
     jcenter()

@@ -26,8 +26,17 @@ dependencies {
   ksp("dev.zacsweers.moshix:moshi-ksp:0.4.0")
 
   // project plugin dependencies
-  implementation(kotlin("gradle-plugin", "1.4.20-M2"))
-  implementation(kotlin("serialization", "1.4.20-M2"))
-  implementation("com.android.tools.build:gradle:4.2.0-alpha14")
+  implementation(kotlin("gradle-plugin", "1.4.20-RC"))
+  implementation(kotlin("serialization", "1.4.20-RC"))
+  implementation("com.android.tools.build:gradle:4.2.0-alpha16")
   implementation("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.1")
+}
+
+tasks.compileKotlin {
+  kotlinOptions {
+    freeCompilerArgs = freeCompilerArgs + listOf(
+      "-Xopt-in=kotlin.RequiresOptIn",
+      "-Xopt-in=kotlin.ExperimentalStdlibApi"
+    )
+  }
 }

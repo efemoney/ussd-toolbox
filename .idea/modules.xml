@@ -6,7 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ussd-toolbox.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ussd-toolbox.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/data/ussd-toolbox.app.data.iml" filepath="$PROJECT_DIR$/.idea/modules/app/data/ussd-toolbox.app.data.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/design/ussd-toolbox.app.design.iml" filepath="$PROJECT_DIR$/.idea/modules/app/design/ussd-toolbox.app.design.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ussd-toolbox.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/ussd-toolbox.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ussd-toolbox.build-src.iml" filepath="$PROJECT_DIR$/.idea/modules/ussd-toolbox.build-src.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/ussd-toolbox.server.iml" filepath="$PROJECT_DIR$/.idea/modules/server/ussd-toolbox.server.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/api/ussd-toolbox.service-api.iml" filepath="$PROJECT_DIR$/.idea/modules/service/api/ussd-toolbox.service-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/service/def/ussd-toolbox.service-def.iml" filepath="$PROJECT_DIR$/.idea/modules/service/def/ussd-toolbox.service-def.iml" />
