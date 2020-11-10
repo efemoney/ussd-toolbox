@@ -20,5 +20,4 @@ plugins {
 
 dependencies {
   implementation(Deps.kotlin.stdlib.jdk8)
-  //implementation(libs.kotlin)
 }

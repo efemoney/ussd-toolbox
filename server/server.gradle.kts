@@ -18,7 +18,7 @@ plugins {
 }
 
 dependencies {
-  implementation(project(":service-api"))
+  implementation(projects.serviceApi)
 
   implementation(Deps.kotlin.stdlib.jdk8)
 }

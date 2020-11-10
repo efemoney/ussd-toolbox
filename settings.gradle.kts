@@ -13,26 +13,24 @@
  * limitations under the License.
  */
 
-val ProjectDescriptor.allChildren: Sequence<ProjectDescriptor>
-  get() = children.asSequence().flatMap { sequenceOf(it) + it.allChildren }
+rootProject.name = "ussd-toolbox"
+rootProject.buildFileName = "root.gradle.kts"
+
+enableFeaturePreview("VERSION_ORDERING_V2")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 plugins {
   `gradle-enterprise`
 }
 
-gradleEnterprise {
-  buildScan {
-    termsOfServiceUrl = "https://gradle.com/terms-of-service"
-    termsOfServiceAgree = "yes"
+gradleEnterprise.buildScan {
+  termsOfServiceUrl = "https://gradle.com/terms-of-service"
+  termsOfServiceAgree = "yes"
 
-    buildScanPublished {
-      if (System.getenv("CI") != "true") exec { commandLine("open", buildScanUri) }
-    }
+  buildScanPublished {
+    if (System.getenv("CI") != "true") exec { commandLine("open", buildScanUri) }
   }
 }
-
-enableFeaturePreview("VERSION_ORDERING_V2")
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
   ":app",
@@ -49,8 +47,8 @@ include(
   ":server"
 )
 
-rootProject.name = "ussd-toolbox"
-rootProject.buildFileName = "root.gradle.kts"
+val ProjectDescriptor.allChildren: Sequence<ProjectDescriptor>
+  get() = children.asSequence().flatMap { sequenceOf(it) + it.allChildren }
 
 rootProject.allChildren.forEach {
 
@@ -75,16 +73,5 @@ rootProject.allChildren.forEach {
   project(path).apply {
     buildFileName = projectBuildFile
     projectDir = projectDirFile
-  }
-}
-
-dependencyResolutionManagement {
-  dependenciesModel("default") {
-
-    version("kotlin", "1.4.20-RC")
-
-    alias("kotlin")
-      .to("org.jetbrains.kotlin", "kotlin-stdlib-jdk8")
-      .versionRef("kotlin")
   }
 }

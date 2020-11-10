@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-rootProject.name = "build-src"
 rootProject.buildFileName = "buildSrc.gradle.kts"
 
 pluginManagement {
