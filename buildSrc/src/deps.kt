@@ -18,8 +18,8 @@
 import org.gradle.api.internal.artifacts.dsl.ParsedModuleStringNotation
 
 object Versions {
-  const val agp = "4.2.0-alpha16"
-  const val kotlin = "1.4.20-RC"
+  const val agp = "7.0.0-alpha03"
+  const val kotlin = "1.4.30-M1"
 
   const val coroutines = "1.4.1"
   const val serialization = "1.0.1"
@@ -36,7 +36,7 @@ object Versions {
   const val timber = "4.7.1"
 
   object androidx {
-    const val core = "1.5.0-alpha04"
+    const val core = "1.5.0-alpha05"
     const val activity = "1.2.0-beta01"
     const val appcompat = "1.3.0-alpha02"
     const val fragment = "1.3.0-beta01"

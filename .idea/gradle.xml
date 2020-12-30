@@ -4,7 +4,23 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="testRunner" value="PLATFORM" />
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/build-plugins" name="build-plugins">
+                <projects>
+                  <project path="$PROJECT_DIR$/build-plugins" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/build-simple-layout" name="build-simple-layout">
+                <projects>
+                  <project path="$PROJECT_DIR$/build-simple-layout" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
+        <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="/usr/local/Cellar/gradle/6.7/libexec" />
@@ -14,6 +30,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/app/data" />
             <option value="$PROJECT_DIR$/app/design" />
+            <option value="$PROJECT_DIR$/build-plugins" />
+            <option value="$PROJECT_DIR$/build-simple-layout" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/server" />
             <option value="$PROJECT_DIR$/service/api" />

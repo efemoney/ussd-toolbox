@@ -19,7 +19,7 @@ import org.jetbrains.gradle.ext.TaskTriggersConfig
 import org.jetbrains.kotlin.utils.addToStdlib.cast
 
 plugins {
-  `simple-project-layout`
+  id("simple-project-layout")
   kotlin("jvm")
 }
 

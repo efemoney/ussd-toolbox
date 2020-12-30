@@ -13,15 +13,25 @@
  * limitations under the License.
  */
 
+import org.gradle.plugin.management.internal.autoapply.AutoAppliedGradleEnterprisePlugin as GEnterprise
+
 plugins {
-  id("simple-project-layout")
-  kotlin("jvm")
-  kotlin("plugin.serialization")
+  `kotlin-dsl-base`
+  `java-gradle-plugin`
 }
 
-dependencies {
-  api(projects.serviceApi)
-  api(projects.serviceDsl)
-  implementation(Deps.kotlin.stdlib.jdk8)
-  implementation(Deps.kotlinx.serialization.core)
+repositories {
+  gradlePluginPortal {
+    content { includeGroup("com.gradle") }
+  }
+  mavenCentral()
+}
+sourceSets.main.get().java.setSrcDirs(listOf("src"))
+dependencies.implementation("${GEnterprise.GROUP}:${GEnterprise.NAME}:${GEnterprise.VERSION}")
+
+gradlePlugin {
+  plugins.create("ussd-toolbox-settings") {
+    id = "ussd-toolbox-settings"
+    implementationClass = "UssdToolboxSettings"
+  }
 }

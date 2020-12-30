@@ -17,9 +17,7 @@ plugins {
   kotlin("jvm")
 }
 
-kotlin.sourceSets {
-  get("main").kotlin.srcDir(file("$rootDir/scripts"))
-}
+kotlin.sourceSets["main"].kotlin.srcDir(file("$rootDir/scripts"))
 
 dependencies {
   implementation(projects.serviceDef)

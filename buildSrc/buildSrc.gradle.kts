@@ -12,24 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 plugins {
-  `kotlin-dsl`
+  `kotlin-dsl-base`
   id("symbol-processing")
 }
+
+sourceSets.main.get().java.srcDir("src")
 
 dependencies {
   // buildSrc dependencies
   implementation("com.squareup.okhttp3:okhttp:4.10.0-RC1")
   implementation("com.squareup:kotlinpoet:1.7.2")
   implementation("com.squareup.moshi:moshi:1.11.0")
-  ksp("dev.zacsweers.moshix:moshi-ksp:0.4.0")
+  ksp("dev.zacsweers.moshix:moshi-ksp:0.7.0")
 
   // project plugin dependencies
-  implementation(kotlin("gradle-plugin", "1.4.20-RC"))
-  implementation(kotlin("serialization", "1.4.20-RC"))
-  implementation("com.android.tools.build:gradle:4.2.0-alpha16")
-  implementation("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.1")
+  implementation(kotlin("gradle-plugin", "1.4.21"))
+  implementation(kotlin("serialization", "1.4.21"))
+  implementation("com.android.tools.build:gradle:7.0.0-alpha03")
+  implementation("androidx.navigation:navigation-safe-args-gradle-plugin:2.3.2")
 }
 
 tasks.compileKotlin {

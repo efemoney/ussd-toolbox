@@ -101,7 +101,7 @@ subprojects {
         isCoreLibraryDesugaringEnabled = true
 
         project.dependencies {
-          "coreLibraryDesugaring"("com.android.tools:desugar_jdk_libs:1.0.10")
+          "coreLibraryDesugaring"("com.android.tools:desugar_jdk_libs:1.1.1")
         }
 
         sourceCompatibility = java8

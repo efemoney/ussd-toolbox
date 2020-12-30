@@ -18,7 +18,7 @@ import tasks.GenerateCountriesDsl
 
 plugins {
   kotlin("jvm")
-  `simple-project-layout`
+  id("simple-project-layout")
 }
 
 val generatedSrcDir = buildDir("generated/source/countries")

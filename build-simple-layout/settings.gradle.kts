@@ -13,15 +13,3 @@
  * limitations under the License.
  */
 
-plugins {
-  id("simple-project-layout")
-  kotlin("jvm")
-  kotlin("plugin.serialization")
-}
-
-dependencies {
-  api(projects.serviceApi)
-  api(projects.serviceDsl)
-  implementation(Deps.kotlin.stdlib.jdk8)
-  implementation(Deps.kotlinx.serialization.core)
-}

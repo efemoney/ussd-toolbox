@@ -16,7 +16,7 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-  `simple-project-layout`
+  id("simple-project-layout")
   application
   kotlin("jvm")
 }

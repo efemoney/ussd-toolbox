@@ -22,7 +22,7 @@ pluginManagement {
   }
   resolutionStrategy.eachPlugin {
     if (requested.id.id == "symbol-processing") // Support ksp plugin
-      useModule("com.google.devtools.ksp:symbol-processing:1.4.10-dev-experimental-20201023")
+      useModule("com.google.devtools.ksp:symbol-processing:1.4.20-dev-experimental-20201222")
   }
 }
 

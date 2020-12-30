@@ -13,24 +13,15 @@
  * limitations under the License.
  */
 
-rootProject.name = "ussd-toolbox"
-rootProject.buildFileName = "root.gradle.kts"
-
-enableFeaturePreview("VERSION_ORDERING_V2")
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+pluginManagement {
+  includeBuild("build-plugins")
+}
 
 plugins {
-  `gradle-enterprise`
+  id("ussd-toolbox-settings")
 }
 
-gradleEnterprise.buildScan {
-  termsOfServiceUrl = "https://gradle.com/terms-of-service"
-  termsOfServiceAgree = "yes"
-
-  buildScanPublished {
-    if (System.getenv("CI") != "true") exec { commandLine("open", buildScanUri) }
-  }
-}
+includeBuild("build-simple-layout")
 
 include(
   ":app",
@@ -46,32 +37,3 @@ include(
   ":tooling-compiler-plugin",
   ":server"
 )
-
-val ProjectDescriptor.allChildren: Sequence<ProjectDescriptor>
-  get() = children.asSequence().flatMap { sequenceOf(it) + it.allChildren }
-
-rootProject.allChildren.forEach {
-
-  val path = it.path
-  val splitPath = path.removePrefix(":").replace(':', '-').split('-')
-
-  // Given path :tooling:idea-plugin, after splitting becomes [tooling, idea, plugin]
-  // Generates sequence: [tooling, idea, plugin], [tooling, idea-plugin], [tooling-idea-plugin]
-
-  val filePathCandidates = generateSequence(splitPath) {
-    if (it.size <= 1) null else it.dropLast(2) + it.takeLast(2).joinToString("-")
-  }
-
-  val projectDirFile = filePathCandidates
-    .map { file(it.joinToString(File.separator)) }
-    .first { it.exists() && it.isDirectory }
-
-  val projectBuildFile = filePathCandidates
-    .map { "${it.last()}.gradle.kts" }
-    .first { projectDirFile.resolve(it).exists() }
-
-  project(path).apply {
-    buildFileName = projectBuildFile
-    projectDir = projectDirFile
-  }
-}

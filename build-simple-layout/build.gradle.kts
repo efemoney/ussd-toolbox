@@ -14,14 +14,20 @@
  */
 
 plugins {
-  id("simple-project-layout")
-  kotlin("jvm")
-  kotlin("plugin.serialization")
+  `kotlin-dsl-base`
+  `java-gradle-plugin`
 }
 
-dependencies {
-  api(projects.serviceApi)
-  api(projects.serviceDsl)
-  implementation(Deps.kotlin.stdlib.jdk8)
-  implementation(Deps.kotlinx.serialization.core)
+repositories {
+  google()
+  mavenCentral()
+  jcenter()
+}
+
+sourceSets.main.get().java.srcDir("src")
+dependencies.compileOnly("com.android.tools.build:gradle:4.1.1")
+
+gradlePlugin.plugins.create("plugin") {
+  id = "simple-project-layout"
+  implementationClass = "SimpleProjectLayoutPlugin"
 }

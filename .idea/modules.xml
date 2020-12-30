@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/build-plugins/build-plugins.iml" filepath="$PROJECT_DIR$/.idea/modules/build-plugins/build-plugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/build-simple-layout/build-simple-layout.iml" filepath="$PROJECT_DIR$/.idea/modules/build-simple-layout/build-simple-layout.iml" />
       <module fileurl="file://$PROJECT_DIR$/ussd-toolbox.iml" filepath="$PROJECT_DIR$/ussd-toolbox.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ussd-toolbox.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ussd-toolbox.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/data/ussd-toolbox.app.data.iml" filepath="$PROJECT_DIR$/.idea/modules/app/data/ussd-toolbox.app.data.iml" />
